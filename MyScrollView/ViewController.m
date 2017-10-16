@@ -13,6 +13,8 @@
 @property (nonatomic, weak) UIView *mainView;
 @property (nonatomic, weak) UIView *redView;
 @property (nonatomic, weak) UIView *greenView;
+@property (nonatomic, weak) UIView *blueView;
+@property (nonatomic, weak) UIView *yellowView;
 
 
 @end
@@ -61,8 +63,24 @@
     [self.mainView addSubview:greenView];
     self.greenView = greenView;
 
-   
+    //A blue UIView at (40,400) x, y coordinates and with width 200 and height 150
+    CGRect blueViewFrame = CGRectMake(40, 400, 200, 150);
     
+    UIView *blueView = [[UIView alloc] initWithFrame:blueViewFrame];
+    blueView.translatesAutoresizingMaskIntoConstraints = NO;
+    blueView.backgroundColor = [UIColor blueColor];
+    [self.mainView addSubview:blueView];
+    self.blueView = blueView;
+    
+    //A yellow UIView at (100,600) x, y coordinates and with width 180 and height 150
+    CGRect yellowViewFrame = CGRectMake(100, 600, 180, 150);
+    
+    UIView *yellowView = [[UIView alloc] initWithFrame:yellowViewFrame];
+    yellowView.translatesAutoresizingMaskIntoConstraints = NO;
+    yellowView.backgroundColor = [UIColor yellowColor];
+    [self.mainView addSubview:yellowView];
+    self.yellowView = yellowView;
+
 }
 
 
