@@ -16,6 +16,8 @@
 @property (nonatomic, weak) UIView *greenView;
 @property (nonatomic, weak) UIView *blueView;
 @property (nonatomic, weak) UIView *yellowView;
+@property (nonatomic, weak) MyScrollView *myScrollView;
+
 
 
 @end
@@ -39,16 +41,16 @@
 }
 
 -(void)createMainView {
-    UIView *mainView = [[UIView alloc] initWithFrame:CGRectZero];
-    mainView.translatesAutoresizingMaskIntoConstraints = NO;
+    UIView *mainView = [[UIView alloc] initWithFrame:self.view.frame];
+//    mainView.translatesAutoresizingMaskIntoConstraints = NO;
  //   mainView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:mainView];
     self.mainView = mainView;
     
-    [self.mainView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
-    [self.mainView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
-    [self.mainView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    [self.mainView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+//    [self.mainView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+//    [self.mainView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
+//    [self.mainView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+//    [self.mainView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
 
 }
 
@@ -58,7 +60,6 @@
     CGRect redViewFrame = CGRectMake(20, 20, 100, 100);
     
     UIView *redView = [[UIView alloc] initWithFrame:redViewFrame];
-    redView.translatesAutoresizingMaskIntoConstraints = NO;
     redView.backgroundColor = [UIColor redColor];
     [self.mainView addSubview:redView];
     self.redView = redView;
@@ -67,7 +68,6 @@
     CGRect greenViewFrame = CGRectMake(150, 150, 150, 200);
     
     UIView *greenView = [[UIView alloc] initWithFrame:greenViewFrame];
-    greenView.translatesAutoresizingMaskIntoConstraints = NO;
     greenView.backgroundColor = [UIColor greenColor];
     [self.mainView addSubview:greenView];
     self.greenView = greenView;
@@ -76,7 +76,6 @@
     CGRect blueViewFrame = CGRectMake(40, 400, 200, 150);
     
     UIView *blueView = [[UIView alloc] initWithFrame:blueViewFrame];
-    blueView.translatesAutoresizingMaskIntoConstraints = NO;
     blueView.backgroundColor = [UIColor blueColor];
     [self.mainView addSubview:blueView];
     self.blueView = blueView;
@@ -85,7 +84,6 @@
     CGRect yellowViewFrame = CGRectMake(100, 600, 180, 150);
     
     UIView *yellowView = [[UIView alloc] initWithFrame:yellowViewFrame];
-    yellowView.translatesAutoresizingMaskIntoConstraints = NO;
     yellowView.backgroundColor = [UIColor yellowColor];
     [self.mainView addSubview:yellowView];
     self.yellowView = yellowView;
@@ -94,9 +92,9 @@
 
 -(void)setMyScrollView {
     
-    MyScrollView *myScrollView = [[MyScrollView alloc]initWithFrame:CGRectMake(0,0, self.mainView.frame.size.width, self.mainView.frame.size.width)];
+    MyScrollView *myScrollView = [[MyScrollView alloc]initWithFrame:CGRectMake(0,0, self.mainView.frame.size.width, self.mainView.frame.size.height)];
     
-    myScrollView.userInteractionEnabled=YES;
+
     [self.mainView addSubview:myScrollView];
     myScrollView.contentSize = self.mainView.bounds.size;
     
@@ -105,9 +103,19 @@
     
     }
 
--(void)scroll: (UIGestureRecognizer *) sender {
-    CGPoint locationInView = [sender locationInView:self.mainView];
-    sender.view.center = locationInView;
+-(void)scroll: (UIPanGestureRecognizer *) sender {
+    
+    CGPoint translationInView = [sender translationInView: self.myScrollView];
+    CGFloat oldPosisionX = self.myScrollView.frame.origin.x;
+    CGFloat oldPositionY = self.myScrollView.frame.origin.y;
+    
+    CGFloat newPosisionX = oldPosisionX + translationInView.x;
+    CGFloat newPositionY = oldPositionY + translationInView.y;
+    
+    CGPoint newPosition = CGPointMake(newPosisionX, newPositionY);
+    
+    sender.view.center = newPosition;
+    [sender setTranslation:newPosition inView:self.myScrollView];
 }
 
 @end
