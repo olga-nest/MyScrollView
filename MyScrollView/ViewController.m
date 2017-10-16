@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "MyScrollView.h"
 
 @interface ViewController ()
 
@@ -24,7 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createMainView];
+    [self setMyScrollView];
     [self createSubViews];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -89,5 +92,22 @@
 
 }
 
+-(void)setMyScrollView {
+    
+    MyScrollView *myScrollView = [[MyScrollView alloc]initWithFrame:CGRectMake(0,0, self.mainView.frame.size.width, self.mainView.frame.size.width)];
+    
+    myScrollView.userInteractionEnabled=YES;
+    [self.mainView addSubview:myScrollView];
+    myScrollView.contentSize = self.mainView.bounds.size;
+    
+    myScrollView.panRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(scroll:)];
+    [self.mainView addGestureRecognizer:myScrollView.panRecognizer];
+    
+    }
+
+-(void)scroll: (UIGestureRecognizer *) sender {
+    CGPoint locationInView = [sender locationInView:self.mainView];
+    sender.view.center = locationInView;
+}
 
 @end
