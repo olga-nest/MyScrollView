@@ -18,7 +18,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self createMainView]; 
     
+    
+}
+
+-(void)createMainView {
     UIView *mainView = [[UIView alloc] initWithFrame:CGRectZero];
     mainView.translatesAutoresizingMaskIntoConstraints = NO;
     mainView.backgroundColor = [UIColor grayColor];
@@ -29,10 +34,8 @@
     [self.mainView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
     [self.mainView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [self.mainView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
-    
-    
-}
 
+}
 
 
 @end
