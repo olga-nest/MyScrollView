@@ -10,20 +10,29 @@
 
 @interface ViewController ()
 
+@property (nonatomic) UIView *mainView;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    UIView *mainView = [[UIView alloc] initWithFrame:CGRectZero];
+    mainView.translatesAutoresizingMaskIntoConstraints = NO;
+    mainView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:mainView];
+    self.mainView = mainView;
+    
+    [self.mainView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+    [self.mainView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
+    [self.mainView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [self.mainView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    
+    
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 @end
