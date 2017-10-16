@@ -25,14 +25,20 @@
     [super viewDidLoad];
     [self createMainView];
     [self createSubViews];
-    
-    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//Move the origin of the bounds of the mainView down 100 point in the y direction
+    CGRect rect = self.mainView.frame;
+    rect.origin = CGPointMake(self.mainView.frame.origin.x, self.mainView.frame.origin.y - 100);
+    self.mainView.frame = rect;
 }
 
 -(void)createMainView {
     UIView *mainView = [[UIView alloc] initWithFrame:CGRectZero];
     mainView.translatesAutoresizingMaskIntoConstraints = NO;
-    mainView.backgroundColor = [UIColor grayColor];
+ //   mainView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:mainView];
     self.mainView = mainView;
     
